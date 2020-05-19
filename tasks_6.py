@@ -36,6 +36,14 @@ mask = int(ip[1])
 print('''Network:\n{0:<8} {1:<8} {2:<8} {3:<8} \n{0:08b} {1:08b} {2:08b} {3:08b}'''.format(int(ip1[0]), int(ip1[1]), int(ip1[2]), int(ip1[3])))
 print('''Mask:\n{0:b}'''.format(mask))
 
+if mask%30 !=0:
+    n = 3
+    l = (6 + (mask - 30))
+    print((('1' * 8 + '.') * n) + ('1' * l) + ('0' * (32 - mask)))
+elif mask/30 !=3 and mask%20 !=0:
+    n = 2
+    l = (4 + (mask - 20))
+    print((('1' * 8 + '.') * n) + (('1' * l) + ('0' * (8-l)))+'.'+('0'*8))
 
 mac = ['aabb:cc80:7000', 'aabb:dd80:7340', 'aabb:ee80:7000', 'aabb:ff80:7000']
 mac_cisco = []
