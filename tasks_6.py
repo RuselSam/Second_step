@@ -34,16 +34,31 @@ ip1 = ip[0].split('.')
 ip1[3] = 0
 mask = int(ip[1])
 print('''Network:\n{0:<8} {1:<8} {2:<8} {3:<8} \n{0:08b} {1:08b} {2:08b} {3:08b}'''.format(int(ip1[0]), int(ip1[1]), int(ip1[2]), int(ip1[3])))
-print('''Mask:\n{0:b}'''.format(mask))
 
-if mask%30 !=0:
+mask = int(mask)
+if mask >=24 and mask <=32 :
+    print('выполнился первый')
     n = 3
     l = (6 + (mask - 30))
-    print((('1' * 8 + '.') * n) + ('1' * l) + ('0' * (32 - mask)))
-elif mask/30 !=3 and mask%20 !=0:
+    four_oktet = (('1' * 8 + '.') * n) + ('1' * l) + ('0' * (32 - mask))
+    print(four_oktet)
+elif mask >=16 and mask <=23 :
+    print('выполнился второй')
     n = 2
     l = (4 + (mask - 20))
-    print((('1' * 8 + '.') * n) + (('1' * l) + ('0' * (8-l)))+'.'+('0'*8))
+    three_oktet = (('1' * 8 + '.') * n) + (('1' * l) + ('0' * (8-l)))+'.'+('0'*8)
+    print(three_oktet)
+elif mask >=8 and mask <=15 :
+    print('выполнился третий')
+    n = 1
+    l = (2 + (mask - 10))
+    two_oktet = (('1' * 8 + '.') * n) + (('1' * l) + ('0' * (8-l)))+('.'+('0'*8))*2
+    print(two_oktet)
+elif mask >=0 and mask <=7 :
+    print('выполнился четвертый')
+    l = mask
+    one_oktet = (('1' * l) + ('0' * (8-l)))+('.'+('0'*8))*3
+    print(one_oktet)
 
 mac = ['aabb:cc80:7000', 'aabb:dd80:7340', 'aabb:ee80:7000', 'aabb:ff80:7000']
 mac_cisco = []

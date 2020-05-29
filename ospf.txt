@@ -1,1 +1,37 @@
-O        10.0.24.0/24 [110/41] via 10.0.13.3, 3d18h, FastEthernet0/0
+interface  FastEthernet0/12
+switchport mode access
+switchport access vlan 10
+switchport nonegotiate
+spanning-tree portfast
+spanning-tree bpduguard enable
+switchport port-security maximum 2
+switchport port-security violation restrict
+switchport port-security
+interface  FastEthernet0/14
+switchport mode access
+switchport access vlan 11
+switchport nonegotiate
+spanning-tree portfast
+spanning-tree bpduguard enable
+switchport port-security maximum 2
+switchport port-security violation restrict
+switchport port-security
+interface  FastEthernet0/16
+switchport mode access
+switchport access vlan 17
+switchport nonegotiate
+spanning-tree portfast
+spanning-tree bpduguard enable
+switchport port-security maximum 2
+switchport port-security violation restrict
+switchport port-security
+interface FastEthernet0/1
+switchport trunk allowed vlan 10, 20, 30
+switchport trunk native vlan 999'
+interface FastEthernet0/2
+switchport trunk allowed vlan 11, 30
+switchport trunk native vlan 999
+interface FastEthernet0/4
+switchport trunk allowed vlan 17
+switchport trunk native vlan 999
+
