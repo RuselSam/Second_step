@@ -3,25 +3,25 @@ with open('show_cdp_neighbor.txt', 'r') as show_c:
 
 def parse_cdp_neighbors(command_output):
     device = []
-    interface = []
+    local_interface = []
+    port_id = []
+    cdp_neighbors_dict = {}
     for items in command_output:
-        if 'R' in items:
+        if ('R' or 'SW') in items:
             items = items.split()
-        else:
+            device.append(items[0])
+            local_interface.append('Fa'+items[2])
+            port_id.append('Fa'+items[-1])
             continue
-        for devices in items:
-            if 'R' in devices and len(str(devices)) > 1:
-                device.append(devices)
-            elif '/' in devices:
-                interface.append('Fa'+devices)
-                continue
         for dev in device:
             if len(str(dev)) > 2:
                 x = device.index(dev)
                 dev = dev[0:2]
                 device[x] = dev
-                continue
-    cdp_neighbors_dict = {(device[0], interface[1]) : (device[1], interface[0]), (device[0], interface[2]): (device[2], interface[3])}
+    local_interface = list(filter(lambda inter: "/" in inter, local_interface))
+    port_id = list(filter(lambda port: "/" in port, port_id))
+    for elements in range(len(port_id)):
+        cdp_neighbors_dict.update({(device[0], local_interface[elements]): (device[elements], port_id[elements])})
     return cdp_neighbors_dict
 
 parse_cdp_neighbors(show_c)
